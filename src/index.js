@@ -6,16 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", function(){
     event.preventDefault();
-
-    li.innerHTML = input.value + '<input id="button" type="button" value="X" />';
+    
+    li.innerHTML = input.value + '<button id="deleteBtn" >X</button>';
 
     tasks.appendChild(li);
     form.reset();
+
+  let button = document.getElementById("deleteBtn");
+  button.addEventListener("click", function(){
+    this.parentNode.remove();
+  })
+
   })
 
 
 });
-
 
 
 // let form = document.getElementById("create-task-form");
