@@ -1,22 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
   let form = document.getElementById("create-task-form");
-      input = document.getElementById("new-task-description");
-      li = document.createElement("li");
+      descInput = document.getElementById("new-task-description");
+      userInput = document.getElementById("new-task-user");
+      li = document.getElementById("li");
       tasks = document.getElementById("tasks");
+      prioritySelection = document.getElementById("priority");
 
   form.addEventListener("submit", function(){
     event.preventDefault();
+
+    let li = document.createElement("li")
+    li.innerHTML = descInput.value + " - " + userInput.value + " " + '<button class="deleteBtn" id="deleteBtn" >X</button>' 
     
-    li.innerHTML = input.value + '<button id="deleteBtn" >X</button>';
+    // + editForm + '<button class="editBtn" id="editBtn" >Edit</button>';
+
+    li.setAttribute("priority", prioritySelection.options[prioritySelection.selectedIndex].id);
+    
+    if (li.getAttribute("priority") === "high"){
+      li.style.color = "red"
+    }
+    else if (li.getAttribute("priority") === "medium"){
+      li.style.color = "#cdd403"
+    }
+    else if (li.getAttribute("priority") === "low"){
+      li.style.color = "green"
+    } 
 
     tasks.appendChild(li);
     form.reset();
 
-  let button = document.getElementById("deleteBtn");
-  button.addEventListener("click", function(){
-    this.parentNode.remove();
-  })
-
+    let deletes = document.querySelectorAll('.deleteBtn');
+    
+    deletes.forEach(btn => {
+        btn.addEventListener("click", function(){
+        tasks.removeChild(this.parentNode);
+      })}
+    )
   })
 
 
